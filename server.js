@@ -6,10 +6,22 @@ function start(route, handle){
 	function onRequest(request, response) { 
 
 		console.log("Request received");
+		var postData = "";
 		var pathname = url.parse(request.url).pathname;
 		console.log("pathname is: " + pathname);
 
-		route(handle, pathname, response);
+		request.setEncoding("utf8");
+		
+		request.addListener("data", function(postDataChunk) {
+			postData += postDataChunk;
+			console.log("Received POST data chunk ' " + postDataChunk + "'."); 
+
+		});
+
+		request.addListener("end", function(){
+			route(handle, pathname, response, postData);
+		});
+		
 
 		//response.writeHead(200, {"Content-Type": "text/plain"}); 
 		//response.write("Hello World");
