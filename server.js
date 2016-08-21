@@ -10,7 +10,7 @@ function start(route, handle){
 		var pathname = url.parse(request.url).pathname;
 		console.log("pathname is: " + pathname);
 
-		request.setEncoding("utf8");
+		//request.setEncoding("utf8");
 		
 		request.addListener("data", function(postDataChunk) {
 			postData += postDataChunk;
@@ -18,9 +18,10 @@ function start(route, handle){
 
 		});
 
-		request.addListener("end", function(){
-			route(handle, pathname, response, postData);
-		});
+		//request.addListener("end", function(){
+			console.log("routing now!");
+			route(handle, pathname, response, request, postData);
+		//});
 		
 
 		//response.writeHead(200, {"Content-Type": "text/plain"}); 
