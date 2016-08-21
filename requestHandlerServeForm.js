@@ -3,7 +3,7 @@ var fs = require('fs');
 var formidable = require("formidable");
 var util = require("util");
 
-function start(response, request, postData) {
+function start(request, response, postData) {
 	console.log("request handler start was called.");
 	
 	var contents = fs.readFile('testForm.html', 'utf8', function(err,contents){
@@ -14,14 +14,14 @@ function start(response, request, postData) {
 }
 
 
-function upload(response, request, postData) {
+function upload(request, response, postData) {
 	console.log("request handler upload was called.");
 	response.writeHead(200, {"Content-type": "text/plain"});
 	response.write("You've sent: " + querystring.parse(postData).text);
 	response.end();
 }
 
-function processForm(response, request, postData){
+function processForm(request, response, postData){
 	debugger;
 	console.log("request handler processForm was called.");
 
